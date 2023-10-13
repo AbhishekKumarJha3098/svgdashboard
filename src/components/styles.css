@@ -1,0 +1,27 @@
+body {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #91f 0%, #40f 100%);
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container {
+    position: relative;
+  }
+  
+  .box {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    position: absolute;
+    background: rgb(8, 8, 8);
+    top: 0;
+    left: 0;
+    offset-path: path(
+      d="M151.238 768v75.619h-15.124v30.248H15.124v-30.248h-30.248 0"  
+    );
+  }
+  
