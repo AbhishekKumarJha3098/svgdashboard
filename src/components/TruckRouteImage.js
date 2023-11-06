@@ -1,6 +1,7 @@
-import { useRef, useEffect } from "react";
-
+import {useState, useRef, useEffect } from "react";
+import truck from "./truck.png"
 import { motion, useMotionValue } from "framer-motion";
+import truckRight from './truck_right.png';
 
 // const transition = { duration: 4, repeat: 2, ease: "linear" };
 
@@ -8,22 +9,24 @@ import { motion, useMotionValue } from "framer-motion";
 
 function TruckRouteImage(props) {
 
+  const [truckFace, setTruckFace] = useState(truck)
+
   const pathRefForeground = useRef(null);
 
   const progressLength = useMotionValue(0);
   const progressX = useMotionValue(0);
   const progressY = useMotionValue(0);
 
-  console.log("Hello",props.truckLocation.tag1)
+ // console.log("Hello",props.truckLocation)
   // const progress = props.truckLocation.tag1;
 
   let progress = 100
 
-  if (props.truckLocation.tag1 === 100){
-  progress = 100
-  } if (props.truckLocation.tag1 === 0) {
+  if (props.truckLocation === 1){
   progress = 0
-  } if (props.truckLocation.tag1 === 10){
+  } if (props.truckLocation === 0) {
+  progress = 100
+  } if (props.truckLocation === 10){
     progress = -100
   }
 
@@ -44,9 +47,16 @@ function TruckRouteImage(props) {
       const latestPathProgress = pathElementForeground.getPointAtLength(
         latestPercent * totalPathLength
       );
+     // console.log(latestPercent);
+      if (latestPercent >= 0.64) {
+        setTruckFace(truckRight);
+      } else {
+        setTruckFace(truck);
+      }
+  
 
-      progressX.set(latestPathProgress.x);
-      progressY.set(latestPathProgress.y);
+      progressX.set(latestPathProgress.x -15);
+      progressY.set(latestPathProgress.y -15);
     });
 
     return unsubscribe;
@@ -57,7 +67,7 @@ function TruckRouteImage(props) {
     repeat: 0,
     bounce: 0.75,
     // type: "spring",
-    duration: 5
+    duration: 15
   };
 
   return (
@@ -96,9 +106,13 @@ function TruckRouteImage(props) {
         transition={transition}
     />
 
+<motion.image
+        x={progressX} // Adjust the x position based on the circle's radius
+        y={progressY} // Adjust the y position based on the circle's radius
+        // Adjust the height of the truck image
+        href ={truckFace}
 
-      <motion.circle cx={progressX} cy={progressY} r="15" fill="#1f88eb" />
-      <motion.circle cx={progressX} cy={progressY} r="5" fill="white" />
+      />
 
 
 

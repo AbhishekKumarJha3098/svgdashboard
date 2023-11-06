@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import TruckRouteImage from '../components/TruckRouteImage'
+import TruckRouteImage from '../components/TruckRouteImage' 
 import axios from 'axios'
 
 function TruckRoutLayout() {
@@ -12,15 +12,16 @@ function TruckRoutLayout() {
    
       const interval = setInterval(() => {
       axios
-        .get("http://192.168.1.4:1880/truck")
+        .get("https://hulnesa.dfos.co:1882/abhi")
         .then((res) => {
-          setTruckvalue(res.data);
-          console.log(truckValue)
+        // console.log(res.data[0].loading17);
+          setTruckvalue(res.data[0].loading17);
+       console.log(truckValue)
         })
         .catch((error) => {
           return console.log(error);
         });
-      },10000);
+      },5000);
       return () => {
         clearInterval(interval);
       };
@@ -34,4 +35,4 @@ function TruckRoutLayout() {
   )
 }
 
-export default TruckRoutLayout
+export default TruckRoutLayout;

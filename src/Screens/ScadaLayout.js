@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import ScadaLayoutSvg from '../components/ScadaLayoutSvg'
-import axios from 'axios'
+// import axios from 'axios'
 
 function ScadaLayout() {
 
@@ -9,11 +9,14 @@ function ScadaLayout() {
   useEffect(() => {
    
     const interval = setInterval(() => {
-    axios
-      .get("http://192.168.1.4:1880/get")
-      .then((res) => {
-        setTagvalue(res.data);
+      fetch('http://localhost:1880/get-tag')
+    
+      .then((response) => response.json())
+      .then((data) => {
+        setTagvalue(data.tagValue);
       })
+
+
       .catch((error) => {
         return console.log(error);
       });
@@ -21,11 +24,11 @@ function ScadaLayout() {
     return () => {
       clearInterval(interval);
     };
+   
     
   }, [tagValue])
 
-  console.log(tagValue)
-
+   console.log(tagValue)
 
 
 
@@ -35,3 +38,4 @@ function ScadaLayout() {
 }
 
 export default ScadaLayout
+
